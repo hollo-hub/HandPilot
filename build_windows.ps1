@@ -6,4 +6,4 @@ if (-not (Test-Path "models\hand_landmarker.task")) {
 
 python -m pip install -e ".[build]"
 python -m PyInstaller --clean --noconfirm GestureControl.spec
-Write-Host "Built dist\GestureControl\GestureControl.exe"
+Write-Host "Built dist\GestureControl.exe"

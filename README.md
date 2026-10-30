@@ -61,8 +61,8 @@ The official model is included in the repository at
 .\build_windows.ps1
 ```
 
-The folder-based executable is created at
-`dist\GestureControl\GestureControl.exe`. A webcam is required, and Windows
+The executable is created at
+`dist\GestureControl.exe`. A webcam is required, and Windows
 camera permissions must allow the application to use it. Tracking is opt-in:
 the camera does not start until **Start tracking** is pressed.
 
