@@ -41,8 +41,8 @@ packaged native executable; Python is only needed when running from source.
 
 1. Extract the Linux tarball completely before launching.
 2. Start from a terminal so errors remain visible:
-   `./GestureControl`
-3. Confirm the file is executable: `chmod +x GestureControl`.
+   `./HandPilot`
+3. Confirm the file is executable: `chmod +x HandPilot`.
 4. Check camera permissions and close other camera applications.
 5. On Linux/X11, check `echo "$DISPLAY"`; on Wayland, test from an XWayland
    desktop session if input actions do not work.
