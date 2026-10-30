@@ -9,14 +9,24 @@ def classify_pose(hand: HandObservation) -> GestureEvent:
     """Classify conservative static poses; ambiguous hands return NONE."""
     if hand.confidence < 0.5:
         return GestureEvent.NONE
-    fingers = _extended_fingers(hand.landmarks)
+    points = hand.landmarks
+    if _is_pinch(points):
+        return GestureEvent.PINCH
+    fingers = _extended_fingers(points)
     if fingers == 5:
         return GestureEvent.OPEN_PALM
     if fingers == 0:
         return GestureEvent.FIST
-    if fingers == 2 and _index_middle_only(hand.landmarks):
-        return GestureEvent.PINCH
     return GestureEvent.NONE
+
+
+def _is_pinch(points: tuple[Point, ...]) -> bool:
+    thumb_tip = points[4]
+    index_tip = points[8]
+    index_length = hypot(points[8].x - points[5].x, points[8].y - points[5].y)
+    return index_length > 0 and hypot(
+        thumb_tip.x - index_tip.x, thumb_tip.y - index_tip.y
+    ) <= index_length * 0.55
 
 
 def _extended_fingers(points: tuple[Point, ...]) -> int:
@@ -31,12 +41,3 @@ def _extended_fingers(points: tuple[Point, ...]) -> int:
             count += 1
     thumb_extended = abs(points[4].x - points[0].x) > abs(points[3].x - points[0].x)
     return count + int(thumb_extended)
-
-
-def _index_middle_only(points: tuple[Point, ...]) -> bool:
-    return (
-        points[8].y < points[6].y
-        and points[12].y < points[10].y
-        and points[16].y > points[14].y
-        and points[20].y > points[18].y
-    )
