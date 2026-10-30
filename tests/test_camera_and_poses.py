@@ -74,3 +74,13 @@ def test_motion_detector_rejects_large_tracking_jump() -> None:
     second = observation([Point(0.9, 0.9) for _ in range(21)])
     detector.update(first)
     assert detector.update(second) is GestureEvent.NONE
+
+
+def test_pinch_is_thumb_and_index_distance() -> None:
+    points = [Point(0.0, 0.0) for _ in range(21)]
+    points[3] = Point(0.08, 0.02)
+    points[4] = Point(0.02, 0.38)
+    points[5] = Point(0.0, 0.2)
+    points[6] = Point(0.0, 0.3)
+    points[8] = Point(0.0, 0.4)
+    assert classify_pose(observation(points)) is GestureEvent.PINCH
