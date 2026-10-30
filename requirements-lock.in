@@ -1,0 +1,3 @@
+# Generate a platform-specific lock after the first Windows environment works:
+# python -m pip install -e ".[test,windows]"
+# python -m pip freeze > requirements-lock.txt

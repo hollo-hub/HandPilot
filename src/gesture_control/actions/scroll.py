@@ -1,0 +1,19 @@
+from __future__ import annotations
+
+from pynput.mouse import Controller
+
+
+class ScrollAction:
+    def __init__(self, controller: Controller | None = None, max_step: int = 8) -> None:
+        if max_step < 1:
+            raise ValueError("max_step must be positive")
+        self.controller = controller
+        self.max_step = max_step
+
+    def __call__(self, parameters: dict[str, object]) -> None:
+        raw_steps = parameters.get("steps", 0)
+        if not isinstance(raw_steps, int):
+            raise ValueError("scroll steps must be an integer")
+        steps = max(-self.max_step, min(self.max_step, raw_steps))
+        if steps:
+            (self.controller or Controller()).scroll(0, steps)
