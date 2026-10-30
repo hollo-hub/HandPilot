@@ -34,7 +34,7 @@ LOGGER = logging.getLogger(__name__)
 class MainWindow(QMainWindow):
     def __init__(self, project_root: Path | None = None) -> None:
         super().__init__()
-        self.setWindowTitle("Gesture Control")
+        self.setWindowTitle("HandPilot")
         self.resize(800, 600)
         self._project_root = project_root or _runtime_root()
         self._worker: TrackingWorker | None = None
